@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wiener Landesbetriebsordnung – Quiz</title>
+<!-- <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f4f8; color: #1a1a1a; min-height: 100vh; }
+  .top-bar { background: #1b3a5c; border-bottom: 3px solid #e8a020; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+  .top-bar h1 { font-size: 14px; font-weight: 700; color: #e8a020; }
+  .top-bar .info { font-size: 13px; color: #ccc; }
+  .mode-badge { font-size: 12px; background: #e8a020; color: #1b3a5c; padding: 3px 10px; border-radius: 12px; font-weight: 700; }
+  .progress-wrap { background: #ccc; height: 5px; }
+  .progress-fill { height: 5px; background: #e8a020; transition: width 0.4s ease; }
+  .container { max-width: 780px; margin: 0 auto; padding: 24px 16px 60px; }
+  .score-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+  .score-card { background: #fff; border-radius: 10px; padding: 12px; text-align: center; border: 1px solid #ddd; }
+  .score-card .num { font-size: 26px; font-weight: 700; }
+  .score-card .lbl { font-size: 12px; color: #888; margin-top: 2px; }
+  .score-card.total .num { color: #1b3a5c; }
+  .score-card.correct .num { color: #2e7d32; }
+  .score-card.wrong .num { color: #c62828; }
+  .q-card { background: #fff; border: 1.5px solid #e8a020; border-radius: 12px; padding: 20px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(232,160,32,0.08); }
+  .q-category { text-align: center; color: #b87010; font-size: 12px; font-weight: 700; margin-bottom: 14px; letter-spacing: 1px; text-transform: uppercase; }
+  .q-number { font-size: 12px; color: #999; margin-bottom: 6px; }
+  .q-text { font-size: 15px; font-weight: 700; line-height: 1.5; margin-bottom: 18px; color: #1b3a5c; }
+  .option { display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; border: 1.5px solid #ddd; border-radius: 8px; margin-bottom: 8px; cursor: pointer; transition: background 0.15s, border-color 0.15s; user-select: none; }
+  .option:hover:not(.disabled) { background: #fff8ee; border-color: #e8a020; }
+  .option.correct  { background: #e8f5e9; border-color: #2e7d32; cursor: default; }
+  .option.wrong    { background: #ffebee; border-color: #c62828; cursor: default; }
+  .option.reveal   { background: #e8f5e9; border-color: #2e7d32; cursor: default; }
+  .option.disabled { cursor: default; }
+  .checkbox { width: 22px; height: 22px; border: 2px solid #ccc; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .option.correct .checkbox { background: #2e7d32; border-color: #2e7d32; color: #fff; }
+  .option.wrong   .checkbox { background: #c62828; border-color: #c62828; color: #fff; }
+  .option.reveal  .checkbox { background: #2e7d32; border-color: #2e7d32; color: #fff; }
+  .opt-text { font-size: 14px; line-height: 1.45; color: #1a1a1a; }
+  .feedback { margin-top: 12px; padding: 12px 14px; border-radius: 8px; font-size: 13px; line-height: 1.6; display: none; }
+  .feedback.show { display: block; }
+  .feedback.ok { background: #e8f5e9; color: #1b5e20; border-left: 4px solid #2e7d32; }
+  .feedback.ko { background: #ffebee; color: #b71c1c; border-left: 4px solid #c62828; }
+  .btn-row { margin-top: 16px; display: flex; gap: 10px; flex-wrap: wrap; }
+  .btn { padding: 10px 24px; border: none; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; transition: opacity 0.15s, transform 0.1s; }
+  .btn:active { transform: scale(0.97); }
+  .btn:disabled { opacity: 0.4; cursor: default; transform: none; }
+  .btn-orange { background: #e8a020; color: #fff; }
+  .btn-orange:hover:not(:disabled) { background: #c88010; }
+  .btn-blue { background: #1b3a5c; color: #fff; }
+  .btn-blue:hover { background: #0e2540; }
+  .result-screen { text-align: center; padding: 40px 20px; }
+  .result-screen .big { font-size: 64px; font-weight: 700; color: #1b3a5c; }
+  .result-screen .sub { font-size: 16px; color: #666; margin-top: 8px; }
+  .pass-badge { display: inline-block; margin-top: 14px; padding: 8px 24px; border-radius: 20px; font-size: 15px; font-weight: 700; }
+  .pass { background: #e8f5e9; color: #1b5e20; }
+  .fail { background: #ffebee; color: #b71c1c; }
+  .mode-row { display: flex; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; }
+  .mode-btn { padding: 7px 16px; border: 1.5px solid #ccc; border-radius: 20px; font-size: 13px; cursor: pointer; background: #fff; color: #555; transition: all 0.15s; font-weight: 500; }
+  .mode-btn.active { background: #e8a020; border-color: #e8a020; color: #fff; font-weight: 700; }
+  .mode-btn:hover:not(.active) { border-color: #e8a020; color: #b87010; }
+</style> -->
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f4f8; color: #1a1a1a; min-height: 100vh; }
+  .top-bar { background: #1b3a5c; border-bottom: 3px solid #e8a020; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+  .top-bar h1 { font-size: 14px; font-weight: 700; color: #e8a020; }
+  .top-bar .info { font-size: 13px; color: #ccc; }
+  .mode-badge { font-size: 12px; background: #e8a020; color: #1b3a5c; padding: 3px 10px; border-radius: 12px; font-weight: 700; }
+  .progress-wrap { background: #ccc; height: 5px; }
+  .progress-fill { height: 5px; background: #e8a020; transition: width 0.4s ease; }
+  .container { max-width: 780px; margin: 0 auto; padding: 24px 16px 60px; }
+  .score-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+  .score-card { background: #fff; border-radius: 10px; padding: 12px; text-align: center; border: 1px solid #ddd; }
+  .score-card .num { font-size: 26px; font-weight: 700; }
+  .score-card .lbl { font-size: 12px; color: #888; margin-top: 2px; }
+  .score-card.total .num { color: #1b3a5c; }
+  .score-card.correct .num { color: #2e7d32; }
+  .score-card.wrong .num { color: #c62828; }
+  .q-card { background: #fff; border: 1.5px solid #e8a020; border-radius: 12px; padding: 20px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(232,160,32,0.08); }
+  .q-category { text-align: center; color: #b87010; font-size: 12px; font-weight: 700; margin-bottom: 14px; letter-spacing: 1px; text-transform: uppercase; }
+  .q-number { font-size: 12px; color: #999; margin-bottom: 6px; }
+
+  .q-text {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.5;
+    margin-bottom: 18px;
+    color: #1b3a5c;
+    user-select: text;
+    -webkit-user-select: text;
+  }
+
+  .option {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 14px;
+    border: 1.5px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    user-select: text;
+    -webkit-user-select: text;
+  }
+
+  .option:hover:not(.disabled) { background: #fff8ee; border-color: #e8a020; }
+  .option.correct  { background: #e8f5e9; border-color: #2e7d32; cursor: default; }
+  .option.wrong    { background: #ffebee; border-color: #c62828; cursor: default; }
+  .option.reveal   { background: #e8f5e9; border-color: #2e7d32; cursor: default; }
+  .option.disabled { cursor: default; }
+
+  .checkbox { width: 22px; height: 22px; border: 2px solid #ccc; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .option.correct .checkbox { background: #2e7d32; border-color: #2e7d32; color: #fff; }
+  .option.wrong .checkbox { background: #c62828; border-color: #c62828; color: #fff; }
+  .option.reveal .checkbox { background: #2e7d32; border-color: #2e7d32; color: #fff; }
+
+  .opt-text {
+    font-size: 14px;
+    line-height: 1.45;
+    color: #1a1a1a;
+    user-select: text;
+    -webkit-user-select: text;
+  }
+
+  .feedback {
+    margin-top: 12px;
+    padding: 12px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.6;
+    display: none;
+    user-select: text;
+    -webkit-user-select: text;
+  }
+
+  .feedback.show { display: block; }
+  .feedback.ok { background: #e8f5e9; color: #1b5e20; border-left: 4px solid #2e7d32; }
+  .feedback.ko { background: #ffebee; color: #b71c1c; border-left: 4px solid #c62828; }
+  .btn-row { margin-top: 16px; display: flex; gap: 10px; flex-wrap: wrap; }
+  .btn { padding: 10px 24px; border: none; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; transition: opacity 0.15s, transform 0.1s; }
+  .btn:active { transform: scale(0.97); }
+  .btn:disabled { opacity: 0.4; cursor: default; transform: none; }
+  .btn-orange { background: #e8a020; color: #fff; }
+  .btn-orange:hover:not(:disabled) { background: #c88010; }
+  .btn-blue { background: #1b3a5c; color: #fff; }
+  .btn-blue:hover { background: #0e2540; }
+  .result-screen { text-align: center; padding: 40px 20px; }
+  .result-screen .big { font-size: 64px; font-weight: 700; color: #1b3a5c; }
+  .result-screen .sub { font-size: 16px; color: #666; margin-top: 8px; }
+  .pass-badge { display: inline-block; margin-top: 14px; padding: 8px 24px; border-radius: 20px; font-size: 15px; font-weight: 700; }
+  .pass { background: #e8f5e9; color: #1b5e20; }
+  .fail { background: #ffebee; color: #b71c1c; }
+  .mode-row { display: flex; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; }
+  .mode-btn { padding: 7px 16px; border: 1.5px solid #ccc; border-radius: 20px; font-size: 13px; cursor: pointer; background: #fff; color: #555; transition: all 0.15s; font-weight: 500; }
+  .mode-btn.active { background: #e8a020; border-color: #e8a020; color: #fff; font-weight: 700; }
+  .mode-btn:hover:not(.active) { border-color: #e8a020; color: #b87010; }
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <h1>🚖 Wiener Landesbetriebsordnung</h1>
+  <div class="info" id="top-info">Frage 1 von 44</div>
+  <div class="mode-badge">Übungs-Modus</div>
+</div>
+<div class="progress-wrap"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
+<div class="container">
+  <div class="score-row">
+    <div class="score-card total"><div class="num" id="s-total">0</div><div class="lbl">Beantwortet</div></div>
+    <div class="score-card correct"><div class="num" id="s-correct">0</div><div class="lbl">Richtig ✓</div></div>
+    <div class="score-card wrong"><div class="num" id="s-wrong">0</div><div class="lbl">Falsch ✗</div></div>
+  </div>
+  <div class="mode-row">
+    <button class="mode-btn active" onclick="setMode('all')"   id="m-all">Alle Fragen (44)</button>
+    <button class="mode-btn"        onclick="setMode('wrong')" id="m-wrong">Nur Falsche</button>
+    <button class="mode-btn"        onclick="shuffleQ()"       id="m-shuffle">Zufällig mischen</button>
+  </div>
+  <div id="quiz-area"></div>
+</div>
+
+<script>
+const Q = [
+
+// ── 1 ──────────────────────────────────────────────────────────────────────
+{q:"1.) Welche Einrichtungen im Fahrzeug müssen sich in einwandfreiem Zustand befinden?",
+opts:[
+  "Sitze / Gepäcksträger und ähnliche Vorrichtungen / Verglasung / Sicherheitsgurte.",
+  "Sitze / Verglasung / Sicherheitsgurte / Taxameter.",
+  "Sitze / Gepäcksträger / Verglasung / Beleuchtung / Sicherheitsgurte.",
+  "Nur Sitze und Sicherheitsgurte — alles andere ist Aufgabe des Taxiunternehmers."
+],correct:0,
+explain:"Einwandfreier Zustand: Sitze, Gepäcksträger und ähnliche Vorrichtungen, Verglasung und Sicherheitsgurte. NICHT Taxameter oder Beleuchtung in dieser Liste."},
+
+// ── 2 ──────────────────────────────────────────────────────────────────────
+{q:"2.) Welche Pflichten haben Taxilenker bezüglich der Sauberkeit des Taxis?",
+opts:[
+  "Außenreinigung + Innenreinigung (Fenster innen/außen, Gummimatten, Staubsaugen von Teppichen und Kofferraum) + Innenraum darf keinen nachteiligen Eindruck erwecken (keine Flecken, Risse oder Beschädigungen).",
+  "Nur Außenreinigung — die Innenreinigung ist Aufgabe des Taxiunternehmers.",
+  "Außenreinigung + Innenreinigung — Flecken und Risse sind nur zu melden, nicht selbst zu beseitigen.",
+  "Außen- und Innenreinigung täglich vor Dienstbeginn — außer an Sonn- und Feiertagen."
+],correct:0,
+explain:"Sauberkeit: Außenreinigung + vollständige Innenreinigung (Fenster innen/außen, Gummimatten, Staubsaugen) + der Innenraum darf KEINEN nachteiligen Eindruck erwecken (keine Flecken, Risse, Beschädigungen)."},
+
+// ── 3a ──────────────────────────────────────────────────────────────────────
+{q:"3a.) Dürfen Fahrgäste im Taxi rauchen?\n3b.) Dürfen Taxilenker im Taxi rauchen?",
+opts:[
+  "Nein — seit dem 1. Januar 2012 ist das Rauchen in Taxifahrzeugen für Fahrgäste UND Taxilenker nicht gestattet.",
+  "Fahrgäste dürfen nicht rauchen — Taxilenker dürfen rauchen, wenn keine Fahrgäste im Fahrzeug sind.",
+  "Nein — seit dem 1. März 2018 ist das Rauchen in Taxifahrzeugen verboten.",
+  "Fahrgäste dürfen nicht rauchen — Taxilenker dürfen rauchen, wenn das Fahrzeug gelüftet wird."
+],correct:0,
+explain:"Seit dem 1. Januar 2012 (nicht 2018!) ist das Rauchen in Taxifahrzeugen für ALLE nicht gestattet — weder Fahrgäste noch Taxilenker."},
+
+// ── 4 ──────────────────────────────────────────────────────────────────────
+{q:"4.) Wer ist für den technisch einwandfreien Zustand des Taxis verantwortlich?",
+opts:[
+  "Der Fahrzeughalter (Taxiunternehmer) ist für den technisch einwandfreien Zustand verantwortlich.",
+  "Der Taxilenker ist für den technisch einwandfreien Zustand verantwortlich.",
+  "Sowohl Fahrzeughalter als auch Taxilenker sind gemeinsam verantwortlich.",
+  "Die Werkstätte, die das Fahrzeug zuletzt gewartet hat, ist verantwortlich."
+],correct:0,
+explain:"Der FAHRZEUGHALTER (Taxiunternehmer) ist für den technisch einwandfreien Zustand des Taxis verantwortlich — NICHT der Taxilenker allein."},
+
+// ── 5a ──────────────────────────────────────────────────────────────────────
+{q:"5a.) Für welche Hunde besteht Beförderungspflicht?\n5b.) Müssen Assistenzhunde einen Maulkorb tragen?",
+opts:[
+  "5a) Alle Hunde — vorausgesetzt sie sind nicht aggressiv oder stark verschmutzt und tragen einen Maulkorb. 5b) Nein — Assistenzhunde sind von der Maulkorbpflicht ausgenommen.",
+  "5a) Nur Assistenzhunde — andere Hunde müssen nicht befördert werden. 5b) Nein.",
+  "5a) Alle Hunde ohne Einschränkung. 5b) Ja — auch Assistenzhunde müssen einen Maulkorb tragen.",
+  "5a) Alle Hunde — vorausgesetzt sie tragen einen Maulkorb. Assistenzhunde auch mit Maulkorb. 5b) Ja."
+],correct:0,
+explain:"Beförderungspflicht für ALLE Hunde — wenn nicht aggressiv, nicht stark verschmutzt und mit Maulkorb. AUSNAHME: Assistenzhunde sind von der Maulkorbpflicht AUSGENOMMEN — kein Maulkorb nötig!"},
+
+// ── 6 ──────────────────────────────────────────────────────────────────────
+{q:"6.) Welche Pflichten hat der Taxilenker bezüglich der Gepäcksstücke der Fahrgäste?",
+opts:[
+  "Der Taxilenker ist verpflichtet, den Fahrgästen beim Auf- und Abladen ihres Gepäcks behilflich zu sein.",
+  "Der Taxilenker muss das Gepäck verstauen — das Auf- und Abladen ist Sache des Fahrgastes.",
+  "Der Taxilenker ist verpflichtet, das Gepäck bis in den Hausflur zu tragen.",
+  "Keine Pflicht — das Gepäck ist allein Sache des Fahrgastes."
+],correct:0,
+explain:"Der Taxilenker muss beim AUF- und ABLADEN des Gepäcks behilflich sein. NICHT verpflichtet, es in den Hausflur zu tragen (dafür gibt es auch keinen Zuschlag!)."},
+
+// ── 7 ──────────────────────────────────────────────────────────────────────
+{q:"7.) Wie lang und wie breit muss ein Taxi-KFZ mindestens sein?",
+opts:[
+  "Mindestlänge: 4,2 m (420 cm / 4200 mm), Breite: 1,56 m — ab 1. Jänner 2025 erstmals als Taxi zugelassene Fahrzeuge müssen rein elektrischen Antrieb haben.",
+  "Mindestlänge: 4,0 m (400 cm), Breite: 1,56 m — ab 1. Jänner 2025 müssen neue Taxis Hybrid-Antrieb haben.",
+  "Mindestlänge: 4,2 m (420 cm / 4200 mm), Breite: 1,60 m — ab 1. Jänner 2025 müssen neue Taxis elektrischen Antrieb haben.",
+  "Mindestlänge: 4,5 m, Breite: 1,56 m — ab 1. Jänner 2025 müssen neue Taxis Elektro- oder Hybridantrieb haben."
+],correct:0,
+explain:"Mindestlänge: 4,2 Meter (420 cm / 4200 mm), Breite: 1,56 m, Euro Norm 6, 4 Türen. Ab 1. Jänner 2025 erstmalig als Taxi zugelassene Fahrzeuge: rein elektrischer Antrieb (Akku oder Wasserstoff). Bereits zugelassene Taxis mit Verbrennungsmotor dürfen weiter betrieben werden."},
+
+// ── 8 ──────────────────────────────────────────────────────────────────────
+{q:"8.) Welche Unterlagen hat der Taxiunternehmer dem Taxilenker nachweislich zur Verfügung zu stellen?",
+opts:[
+  "Wiener Landesbetriebsordnung / Auszug aus dem Gewerberegister (GISA) / Taxitarif / Info Blatt und QR Code. Geräte: Bankomaterät, Navigation, Registrierkasse.",
+  "Taxilenkerausweis / Führerschein / Zulassungsschein / Taxitarif / Wiener Landesbetriebsordnung.",
+  "Wiener Landesbetriebsordnung / Taxitarif / Europäischer Unfallbericht / Info Blatt und QR Code.",
+  "Nur der Taxitarif und die Wiener Landesbetriebsordnung — alles andere besorgt der Lenker selbst."
+],correct:0,
+explain:"Der Unternehmer stellt zur Verfügung: Wiener Landesbetriebsordnung, Auszug aus dem Gewerberegister (GISA), Taxitarif, Info Blatt und QR Code. Geräte: Bankomatergerät, Navigation, Registrierkasse."},
+
+// ── 9a ──────────────────────────────────────────────────────────────────────
+{q:"9a.) Welche Unterlagen müssen Sie gemäß der Wiener Landesbetriebsordnung mitführen?\n9b.) Wem sind die Unterlagen auf Verlangen vorzulegen?",
+opts:[
+  "9a) Wiener Landesbetriebsordnung / Auszug aus dem Gewerberegister (GISA) / Taxitarif / Info Blatt und QR Code. Geräte: Bankomatergerät, Navigation, Registrierkasse. 9b) Dem Fahrgast zur Einsicht.",
+  "9a) Taxilenkerausweis / Führerschein / Zulassungsschein / Taxitarif. 9b) Der Polizei auf Verlangen.",
+  "9a) Wiener Landesbetriebsordnung / Taxitarif / Europäischer Unfallbericht. 9b) Dem Fahrgast und der Polizei.",
+  "9a) Nur Taxitarif und Wiener Landesbetriebsordnung. 9b) Nur der Polizei auf Verlangen."
+],correct:0,
+explain:"Mitführen: Wiener LBO, Auszug Gewerberegister (GISA), Taxitarif, Info Blatt + QR Code. Geräte: Bankomatergerät, Navigation, Registrierkasse. Auf Verlangen: dem FAHRGAST zur Einsicht vorlegen."},
+
+// ── 10 ──────────────────────────────────────────────────────────────────────
+{q:"10.) Wie hat sich der Taxilenker im Fahrdienst zu verhalten?",
+opts:[
+  "Besonnen, rücksichtsvoll, höflich und hilfsbereit.",
+  "Professionell, pünktlich und freundlich.",
+  "Höflich, diskret und auf Wunsch des Fahrgastes auch gesprächig.",
+  "Ruhig, konzentriert und auf die Straße fokussiert — ohne Ablenkung durch Gespräche."
+],correct:0,
+explain:"Laut Wiener Landesbetriebsordnung genau: BESONNEN, RÜCKSICHTSVOLL, HÖFLICH und HILFSBEREIT. Das sind die vier offiziellen Begriffe."},
+
+// ── 11 ──────────────────────────────────────────────────────────────────────
+{q:"11.) Was haben Sie als Taxilenker nach Dienstende zu tun?",
+opts:[
+  "Prüfen ob Gegenstände im Fahrzeug zurückgeblieben sind. Wenn der Eigentümer nicht mehr ermittelbar ist, müssen diese Gegenstände beim Fundservice der Stadt Wien abgegeben werden. Dachleuchte entfernen, Außendiensttafel hinstellen.",
+  "Fahrzeug reinigen und tanken. Dachleuchte ausschalten.",
+  "Fahrzeug beim Unternehmer abgeben und Schlüssel übergeben.",
+  "Prüfen ob Gegenstände zurückgeblieben sind. Diese darf der Lenker bis zum nächsten Tag behalten und dann abgeben."
+],correct:0,
+explain:"Nach Dienstende: (1) Prüfen ob Gegenstände zurückgeblieben sind, (2) wenn Eigentümer nicht ermittelbar → beim Fundservice der Stadt Wien abgeben, (3) Dachleuchte entfernen, (4) Außendiensttafel hinstellen."},
+
+// ── 12 ──────────────────────────────────────────────────────────────────────
+{q:"12.) Was ist Fahrgästen bei Taxifahrten untersagt?",
+opts:[
+  "Den Lenker behindern / Türen während der Fahrt eigenmächtig öffnen / Türen bei Stillstand verkehrsbehindernd öffnen / Fahrzeug beschmutzen oder beschädigen / Im Fahrzeug rauchen.",
+  "Den Lenker behindern / Türen während der Fahrt eigenmächtig öffnen / Telefonieren ohne Kopfhörer / Im Fahrzeug rauchen.",
+  "Den Lenker behindern / Im Fahrzeug rauchen / Lautstark Musik hören / Türen während der Fahrt öffnen.",
+  "Nur Rauchen und das Öffnen von Türen während der Fahrt sind verboten."
+],correct:0,
+explain:"Fahrgästen verboten: Lenker behindern, Türen während Fahrt eigenmächtig öffnen, Türen bei Stillstand verkehrsbehindert öffnen, Fahrzeug beschmutzen/beschädigen (Entgelt für Reinigung!), im Fahrzeug rauchen."},
+
+// ── 13 ──────────────────────────────────────────────────────────────────────
+{q:"13.) Was verstehen Sie unter 'Beförderungspflicht'?",
+opts:[
+  "Unter Beförderungspflicht versteht man die Pflicht, grundsätzlich jeden Fahrgast innerhalb Wiens zu befördern.",
+  "Die Pflicht, jeden Fahrgast in ganz Österreich zu befördern.",
+  "Die Pflicht, jeden Fahrgast zu befördern — auch außerhalb Wiens, wenn der Fahrgast dies wünscht.",
+  "Die Pflicht, Fahrgäste nur zu den offiziellen Taxistandplätzen zu befördern."
+],correct:0,
+explain:"Beförderungspflicht = Pflicht, grundsätzlich JEDEN Fahrgast INNERHALB WIENS zu befördern. Nicht außerhalb Wiens, nicht nur zu Standplätzen."},
+
+// ── 14 ──────────────────────────────────────────────────────────────────────
+{q:"14.) Welche Personen können Sie von der Beförderung ausschließen?",
+opts:[
+  "Personen die Sicherheit/Ordnung oder andere Mitfahrende gefährden / Personen mit ansteckenden Krankheiten / Betrunkene Personen / Personen mit gefährlichen Gegenständen (außer Sicherheitsbeamte) / Personen die den Lenker beschimpfen oder das Fahrzeug beschmutzen / Personen die im Taxi rauchen.",
+  "Nur betrunkene Personen und Personen mit ansteckenden Krankheiten.",
+  "Personen ohne Geld, Betrunkene und Personen mit Tieren.",
+  "Personen die Sicherheit gefährden / Betrunkene / Personen mit ansteckenden Krankheiten — Raucher müssen befördert werden."
+],correct:0,
+explain:"Ausschließen darf man: Sicherheit/Ordnung Gefährdende, Personen mit ansteckenden Krankheiten, Betrunkene, Personen mit gefährlichen Gegenständen (außer Sicherheitsbeamte), den Lenker Beschimpfende/Randalierenden/Beschmutzende, Personen die im Taxi rauchen."},
+
+// ── 15 ──────────────────────────────────────────────────────────────────────
+{q:"15.) Wo finden Sie die maßgeblichen Bestimmungen für die Inbetriebnahme eines Taxifahrzeuges?",
+opts:[
+  "In der Wiener Landesbetriebsordnung.",
+  "Im Kraftfahrgesetz (KFG).",
+  "In der Straßenverkehrsordnung (StVO).",
+  "Im Gelegenheitsverkehrsgesetz (GelVerkG)."
+],correct:0,
+explain:"Die Bestimmungen für die Inbetriebnahme eines Taxifahrzeuges finden Sie in der WIENER LANDESBETRIEBSORDNUNG. Nicht im KFG, nicht in der StVO."},
+
+// ── 16 ──────────────────────────────────────────────────────────────────────
+{q:"16.) Wie viel Platz muss betreffend des Gepäcks im Taxi vorhanden sein?",
+opts:[
+  "Im Taxi muss ausreichend Platz vorhanden sein, um übliches Reisegepäck sicher und bequem transportieren zu können.",
+  "Mindestens 300 Liter Kofferraumvolumen müssen vorhanden sein.",
+  "Das Gepäck muss im Kofferraum verstaut werden — im Fahrgastraum ist kein Platz für Gepäck.",
+  "Für je 2 Fahrgäste muss 1 Gepäckstück Platz haben."
+],correct:0,
+explain:"Es muss ausreichend Platz für ÜBLICHES REISEGEPÄCK vorhanden sein, um es sicher und bequem transportieren zu können. Keine genaue Literzahl, keine starre Regel."},
+
+// ── 17 ──────────────────────────────────────────────────────────────────────
+{q:"17.) Wie muss ein Taxi gekennzeichnet sein?",
+opts:[
+  "Mit einem Schild (mind. 230 x 90 mm), von innen beleuchtet und gut sichtbar, mit von vorne und hinten wahrnehmbarer Aufschrift 'TAXI' in gelber Schrift auf schwarzem Untergrund.",
+  "Mit einem Schild (mind. 200 x 80 mm), beleuchtet, mit Aufschrift 'TAXI' in weißer Schrift auf gelbem Untergrund.",
+  "Mit einem Schild (mind. 230 x 90 mm), von innen beleuchtet, mit Aufschrift 'TAXI' in weißer Schrift auf schwarzem Untergrund.",
+  "Mit einem Schild (mind. 250 x 100 mm), von außen beleuchtet, mit Aufschrift 'TAXI' in gelber Schrift auf schwarzem Untergrund."
+],correct:0,
+explain:"Taxi-Schild: Mindestgröße 230 x 90 mm (nicht 200x80 oder 250x100!), von INNEN beleuchtet (nicht außen!), gut sichtbar, von VORNE und HINTEN wahrnehmbar, Aufschrift 'TAXI' in GELBER Schrift auf SCHWARZEM Untergrund."},
+
+// ── 18 ──────────────────────────────────────────────────────────────────────
+{q:"18.) Wo muss der Name und Standort des Gewerbetreibenden sowie das behördliche Kennzeichen des Taxis ersichtlich gemacht werden?",
+opts:[
+  "Am Armaturenbrett.",
+  "An der Außenseite des Fahrzeugs (hinten rechts).",
+  "Auf dem Taxischild (Dachleuchte).",
+  "Auf einem Aufkleber an der Windschutzscheibe."
+],correct:0,
+explain:"Name, Standort des Gewerbetreibenden und behördliches Kennzeichen müssen AM ARMATURENBRETT ersichtlich sein — nicht außen, nicht auf dem Taxischild."},
+
+// ── 19 ──────────────────────────────────────────────────────────────────────
+{q:"19.) Wie erkennt man ein Ersatztaxi?",
+opts:[
+  "Ein Ersatztaxi ist durch das Kennzeichen 'LT' (Leihtaxi) und von außen deutlich mit der Aufschrift 'Ersatztaxi' gekennzeichnet.",
+  "Ein Ersatztaxi hat ein oranges Taxischild statt dem normalen schwarzen.",
+  "Ein Ersatztaxi ist nur am anderen Kennzeichen erkennbar — keine zusätzliche Kennzeichnung.",
+  "Ein Ersatztaxi trägt die Aufschrift 'Ersatzfahrzeug' auf dem Taxischild."
+],correct:0,
+explain:"Ersatztaxi: Kennzeichen 'LT' (Leihtaxi) UND von außen deutlich mit der Aufschrift 'ERSATZTAXI' gekennzeichnet. Nicht 'Ersatzfahrzeug', kein oranges Schild."},
+
+// ── 20 ──────────────────────────────────────────────────────────────────────
+{q:"20.) Was haben Sie beim Lenken eines Ersatztaxis zu beachten?",
+opts:[
+  "Der Lenker muss die Kennzeichentafel des regulären, auf den Gewerbetreibenden zugelassenen Taxikraftfahrzeuges mitführen. Diese muss den Straßenaufsichtsorganen auf Verlangen vorgewiesen werden.",
+  "Das Ersatztaxi muss vor jeder Fahrt beim Verkehrsamt gemeldet werden.",
+  "Der Lenker muss eine Genehmigung des Taxiunternehmers mitführen — die Kennzeichentafel bleibt beim Original-Taxi.",
+  "Keine besonderen Pflichten — das Ersatztaxi wird wie ein normales Taxi geführt."
+],correct:0,
+explain:"Beim Ersatztaxi: die Kennzeichentafel des regulären Taxi-KFZ des Gewerbetreibenden MITFÜHREN und auf Verlangen den Straßenaufsichtsorganen vorweisen. KEIN besonderer Meldevorgang."},
+
+// ── 21 ──────────────────────────────────────────────────────────────────────
+{q:"21.) Wo muss der Taxilenkerausweis im Fahrdienst angebracht werden?",
+opts:[
+  "Deutlich sichtbar am Armaturenbrett.",
+  "Im Handschuhfach — auf Verlangen vorzuzeigen.",
+  "An der Fahrertür — für den Fahrgast sichtbar.",
+  "Am Rückspiegel — gut sichtbar für alle."
+],correct:0,
+explain:"Der Taxilenkerausweis muss während des Fahrdienstes deutlich sichtbar AM ARMATURENBRETT angebracht sein — nicht im Handschuhfach, nicht an der Tür."},
+
+// ── 22 ──────────────────────────────────────────────────────────────────────
+{q:"22.) Wann besteht innerhalb des Bundeslandes Wien keine Beförderungspflicht?",
+opts:[
+  "Wenn der Taxilenker Bedenken hinsichtlich der Sicherheit hat, die auf Tageszeit, Fahrziel oder die Fahrstrecke zurückzuführen sind — in solchen Fällen kann der Lenker die Beförderung oder Weiterbeförderung ablehnen.",
+  "Wenn das Taxi besetzt ist oder sich 'Außer Dienst' befindet.",
+  "Wenn der Fahrgast keine Vorauszahlung leisten will.",
+  "Bei Fahrten nach 23:00 Uhr in bestimmte Bezirke."
+],correct:0,
+explain:"Keine Beförderungspflicht wenn der Taxilenker Bedenken hinsichtlich der SICHERHEIT hat, die auf TAGESZEIT, FAHRZIEL oder die FAHRSTRECKE zurückzuführen sind. Dann kann er ablehnen oder abbrechen."},
+
+// ── 23 ──────────────────────────────────────────────────────────────────────
+{q:"23.) Welche Fahrstrecke hat der Taxilenker zum Fahrziel zu wählen?",
+opts:[
+  "Entweder die schnellste mögliche Strecke oder die vom Fahrgast gewünschte Route.",
+  "Immer die kürzeste Strecke — ohne Ausnahme.",
+  "Immer die schnellste Strecke — auch wenn der Fahrgast eine andere Route wünscht.",
+  "Die günstigste Strecke für den Fahrgast — unabhängig von Wünschen des Fahrgastes."
+],correct:0,
+explain:"Der Taxilenker muss entweder die SCHNELLSTE mögliche Strecke ODER die vom FAHRGAST GEWÜNSCHTE Route wählen. Nicht zwingend die kürzeste, nicht gegen den Willen des Fahrgastes."},
+
+// ── 24 ──────────────────────────────────────────────────────────────────────
+{q:"24.) Welche drei Auskünfte muss der Taxilenker dem Fahrgast geben?",
+opts:[
+  "Auskunft über die Fahrstrecke / die voraussichtliche Dauer der Fahrt / über den Taxitarif, den voraussichtlichen Fahrpreis und die Funktion des Fahrpreisanzeigers.",
+  "Auskunft über die Fahrstrecke / die genaue Fahrtdauer / den Fahrpreis.",
+  "Auskunft über den Taxitarif / die Fahrstrecke / die Nummer des Taxiunternehmers.",
+  "Auskunft über den Fahrpreis / die Dauer der Fahrt / ob das Taxi ein Kreditkartenterminal hat."
+],correct:0,
+explain:"Die 3 Auskünfte auf Verlangen: (1) Fahrstrecke, (2) voraussichtliche Dauer der Fahrt, (3) Taxitarif + voraussichtlicher Fahrpreis + Funktion des Fahrpreisanzeigers."},
+
+// ── 25 ──────────────────────────────────────────────────────────────────────
+{q:"25.) Welche Verpflichtung hat der Taxilenker beim Ein- und Aussteigen der Fahrgäste?",
+opts:[
+  "Der Taxilenker muss den Fahrgästen bei Bedarf beim Ein- und Aussteigen behilflich sein.",
+  "Der Taxilenker muss immer aussteigen und die Tür für den Fahrgast öffnen.",
+  "Keine besondere Verpflichtung — das Ein- und Aussteigen ist Sache des Fahrgastes.",
+  "Der Taxilenker muss nur älteren oder gehbehinderten Personen beim Ein- und Aussteigen helfen."
+],correct:0,
+explain:"Bei BEDARF beim Ein- und Aussteigen behilflich sein — nicht zwingend immer aussteigen, nicht nur für ältere Personen. 'Bei Bedarf' ist der Schlüsselbegriff."},
+
+// ── 26 ──────────────────────────────────────────────────────────────────────
+{q:"26.) Unter welchen Voraussetzungen müssen Sie Autofenster bzw. Schiebedach öffnen und schließen?",
+opts:[
+  "Auf Verlangen der Fahrgäste — wobei auf die Gesundheit des Lenkers Bedacht genommen werden muss.",
+  "Auf Verlangen der Fahrgäste — ohne Einschränkungen.",
+  "Nur wenn alle Fahrgäste im Fahrzeug damit einverstanden sind.",
+  "Nur bei Temperaturen über 25°C auf Verlangen der Fahrgäste."
+],correct:0,
+explain:"Fenster/Schiebedach: auf Verlangen der Fahrgäste öffnen/schließen — aber unter Bedachtnahme auf die GESUNDHEIT DES LENKERS. Der Lenker kann ablehnen wenn es seiner Gesundheit schadet."},
+
+// ── 27 ──────────────────────────────────────────────────────────────────────
+{q:"27.) Wie viel Wechselgeld müssen Sie mit sich führen?",
+opts:[
+  "Der Taxilenker muss stets so viel Wechselgeld mit sich führen, dass er auf eine Banknote von €50,- herausgeben kann, die ihm zur Bezahlung des Fahrpreises übergeben wird.",
+  "Der Taxilenker muss mindestens €20,- Wechselgeld mitführen.",
+  "Der Taxilenker muss auf €100,- herausgeben können.",
+  "Keine Pflicht — Wechselgeld ist Sache des Fahrgastes."
+],correct:0,
+explain:"Wechselgeld: so viel, dass auf eine €50,-Banknote herausgegeben werden kann. NICHT €20,- Mindestbetrag, NICHT auf €100,-."},
+
+// ── 28 ──────────────────────────────────────────────────────────────────────
+{q:"28.) Wann darf die Taxileuchte nicht beleuchtet sein?",
+opts:[
+  "Wenn Fahrgäste befördert werden ODER bei bestellten Fahrten ODER um nicht fälschlicherweise als 'Frei' erkennbar zu sein.",
+  "Nur wenn Fahrgäste befördert werden.",
+  "Nur bei Nacht und wenn Fahrgäste befördert werden.",
+  "Immer wenn das Taxi unterwegs ist — die Leuchte darf nur am Standplatz leuchten."
+],correct:0,
+explain:"Taxileuchte darf NICHT beleuchtet sein: (1) wenn Fahrgäste befördert werden, (2) bei bestellten Fahrten, (3) um nicht fälschlicherweise als 'Frei' erkannt zu werden. Alle drei Fälle!"},
+
+// ── 29 ──────────────────────────────────────────────────────────────────────
+{q:"29.) Wann befindet sich ein Taxi 'Außer Dienst'?",
+opts:[
+  "Wenn eine gut lesbare Aufschrift (mind. 200 mm x 150 mm) vorne am Taxi oder innen deutlich sichtbar angebracht wird UND sich keine Person im abgestellten Fahrzeug befindet ODER wenn das TAXI-Schild abgenommen/abgedeckt ist und zusätzlich eine Tafel 'Außer Dienst' angebracht wird.",
+  "Wenn der Taxilenker das Licht ausschaltet und das Fahrzeug abstellt.",
+  "Wenn die Taxileuchte nicht beleuchtet ist.",
+  "Wenn der Lenker 'Außer Dienst' in den Taxameter eingibt."
+],correct:0,
+explain:"'Außer Dienst': gut lesbare Aufschrift mind. 200x150mm vorne oder innen sichtbar + keine Person im abgestellten Fahrzeug. ODER: TAXI-Schild abgenommen/abgedeckt + Tafel 'Außer Dienst' angebracht. Nicht nur das Licht ausschalten!"},
+
+// ── 30 ──────────────────────────────────────────────────────────────────────
+{q:"30.) Wo dürfen Sie Fahrgäste aufnehmen?",
+opts:[
+  "Auf Taxistandplätzen / Auf der Fahrt zu einem Taxistandplatz wenn ein Fahrgast das Taxi anhält / Bei Bestellungen an der Bestelladresse / Bei Großveranstaltungen.",
+  "Nur auf Taxistandplätzen — das Anhalten auf der Straße ist verboten.",
+  "Überall wo es die StVO erlaubt und der Fahrgast das Taxi anhält.",
+  "Auf Taxistandplätzen und bei Bestellungen — das Anhalten auf der Fahrt ist nicht erlaubt."
+],correct:0,
+explain:"Fahrgäste aufnehmen: (1) auf Taxistandplätzen, (2) auf der Fahrt zu einem Standplatz wenn Fahrgast das Taxi anhält, (3) bei Bestellungen an der Bestelladresse, (4) bei Großveranstaltungen."},
+
+// ── 31 ──────────────────────────────────────────────────────────────────────
+{q:"31.) Was verstehen Sie unter der 'freien Standplatzwahl'?",
+opts:[
+  "Unter freier Standplatzwahl versteht man, dass jeder Taxistandplatz innerhalb Wiens von einem Taxi angefahren werden kann.",
+  "Der Taxilenker kann seinen Stammstandplatz frei wählen und ist dann an diesen gebunden.",
+  "Jeder Taxilenker darf einen persönlichen Standplatz reservieren.",
+  "Taxis dürfen außerhalb der offiziellen Standplätze halten, wenn kein Standplatz in der Nähe ist."
+],correct:0,
+explain:"Freie Standplatzwahl = JEDER Taxistandplatz innerhalb Wiens kann von einem Taxi angefahren werden. Kein Stammplatz, keine Reservierung, keine feste Zuweisung."},
+
+// ── 32a ──────────────────────────────────────────────────────────────────────
+{q:"32.) Dürfen Sie mit Ihrem Taxi umherfahren um Fahrgäste zu gewinnen? / Dürfen Sie Fahrgäste an Straßenbahn- und Omnibushaltestellen anwerben? / Dürfen Sie Fahrgäste ablehnen? / Dürfen Sie Fahrgäste wegen einer kurzen Fahrt ablehnen?",
+opts:[
+  "Umherfahren: NEIN / Anwerben an Haltestellen: NEIN / Fahrgäste ablehnen: NEIN (außer bei gültigen Ausschließungsgründen) / Kurze Fahrt ablehnen: NEIN — auch bei kurzen Fahrten besteht Beförderungspflicht.",
+  "Umherfahren: JA, erlaubt / Anwerben an Haltestellen: NEIN / Fahrgäste ablehnen: JA, immer / Kurze Fahrt ablehnen: JA.",
+  "Umherfahren: NEIN / Anwerben an Haltestellen: JA, erlaubt / Fahrgäste ablehnen: NEIN / Kurze Fahrt ablehnen: JA.",
+  "Umherfahren: NEIN / Anwerben: NEIN / Ablehnen: JA wenn begründet / Kurze Fahrt: JA, ablehnen erlaubt."
+],correct:0,
+explain:"Alle NEIN: Umherfahren verboten, Anwerben an Haltestellen verboten, Fahrgäste ablehnen nur bei gültigen Ausschließungsgründen, kurze Fahrten dürfen NICHT abgelehnt werden — auch dafür gilt Beförderungspflicht!"},
+
+// ── 33 ──────────────────────────────────────────────────────────────────────
+{q:"33.) Wann müssen Sie die Beleuchtung des Dachschildes nicht abschalten?",
+opts:[
+  "Die Beleuchtung des Dachschildes darf auf Taxistandplätzen bei Dunkelheit oder schlechter Sicht nicht abgeschaltet werden.",
+  "Die Beleuchtung muss immer eingeschaltet sein — außer wenn Fahrgäste befördert werden.",
+  "Die Beleuchtung darf nie abgeschaltet werden — sie muss immer leuchten.",
+  "Die Beleuchtung muss nur bei Dunkelheit eingeschaltet sein — tagsüber ist sie optional."
+],correct:0,
+explain:"Auf TAXISTANDPLÄTZEN bei DUNKELHEIT oder SCHLECHTER SICHT darf die Beleuchtung des Dachschildes NICHT abgeschaltet werden. An anderen Orten kann sie ausgeschaltet sein (z.B. bei Fahrgastbeförderung)."},
+
+// ── 34 ──────────────────────────────────────────────────────────────────────
+{q:"34.) Wie haben sich Taxis auf den Standplätzen aufzustellen?",
+opts:[
+  "Taxis müssen sich nach der Zeit ihrer Ankunft einreihen und platzsparend aufstellen, sodass sie ohne Behinderung und Gefährdung aus der Reihe herausfahren können.",
+  "Taxis stellen sich beliebig auf — die Reihenfolge ergibt sich aus der Fahrgastnachfrage.",
+  "Das erste Taxi steht vorne, die anderen dahinter — nach Fahrzeugkennzeichen geordnet.",
+  "Taxis stellen sich quer auf, um möglichst viele Fahrzeuge unterzubringen."
+],correct:0,
+explain:"Auf Taxistandplätzen: nach ZEITLICHER REIHENFOLGE der Ankunft einreihen, PLATZSPAREND aufstellen, so dass ohne Behinderung und Gefährdung aus der Reihe herausgefahren werden kann."},
+
+// ── 35 ──────────────────────────────────────────────────────────────────────
+{q:"35.) Was haben Sie als Taxilenker zu tun, wenn am Taxistandplatz ein Taxi weggefahren ist?",
+opts:[
+  "Die verbleibenden Taxis müssen nachrücken, um die Lücke zu schließen. An nicht anschließenden Taxis darf vorbeigefahren werden.",
+  "Jeder Lenker bleibt an seinem Platz — das Nachrücken ist freiwillig.",
+  "Nur das direkt hinter dem weggefahrenen Taxi stehende Fahrzeug rückt nach.",
+  "Alle Taxis rücken gleichzeitig vor — das erste Taxi übernimmt die freie Position."
+],correct:0,
+explain:"Wenn ein Taxi wegfährt: die verbleibenden Taxis müssen NACHRÜCKEN um die Lücke zu schließen. An nicht anschließenden Taxis (die nicht nachrücken) darf VORBEIGEFAHREN werden."},
+
+// ── 36 ──────────────────────────────────────────────────────────────────────
+{q:"36.) Wer darf das Standplatztelefon bedienen?",
+opts:[
+  "Das Standplatztelefon muss vom Lenker des ersten Taxis bei Ertönen des Signals bedient werden. Ist dieser verhindert oder nicht berechtigt, muss der Lenker des nächsten berechtigten Taxis die Bedienung übernehmen.",
+  "Jeder Taxilenker am Standplatz darf das Telefon bedienen.",
+  "Nur der diensthabende Standplatz-Koordinator darf das Telefon bedienen.",
+  "Das erste Taxi hat Vorrang — wenn dieses nicht antwortet, bleibt der Anruf unbeantwortet."
+],correct:0,
+explain:"Standplatztelefon: Lenker des ERSTEN Taxis muss bei Signal bedienen. Wenn verhindert oder nicht berechtigt → Lenker des NÄCHSTEN berechtigten Taxis übernimmt. Nicht jeder beliebig, nicht unbeantwortet lassen."},
+
+// ── 37 ──────────────────────────────────────────────────────────────────────
+{q:"37.) Wo müssen sich Taxilenker, die ihr Taxi am Taxistandplatz abgestellt haben, aufhalten?",
+opts:[
+  "Sie müssen sich stets fahrbereit halten und entweder bei ihrem Fahrzeug anwesend sein oder sich in leicht erreichbarer Nähe aufhalten.",
+  "Sie müssen immer im Fahrzeug bleiben — das Verlassen des Taxis ist nicht gestattet.",
+  "Sie dürfen sich frei bewegen — müssen aber innerhalb von 5 Minuten erreichbar sein.",
+  "Sie müssen im Umkreis von 10 Metern vom Fahrzeug bleiben."
+],correct:0,
+explain:"Taxilenker am Standplatz: stets FAHRBEREIT halten, entweder BEIM FAHRZEUG anwesend ODER in LEICHT ERREICHBARER NÄHE. Kein genaues Meter-Limit, aber sofort verfügbar."},
+
+// ── 38 ──────────────────────────────────────────────────────────────────────
+{q:"38.) Welches Taxi kann der Fahrgast wählen bzw. in welches Taxi kann der Fahrgast einsteigen?",
+opts:[
+  "Der Fahrgast hat die Freiheit, in jedes Taxi aus der Reihe am Standplatz einzusteigen.",
+  "Der Fahrgast muss immer das erste Taxi in der Reihe nehmen.",
+  "Der Fahrgast kann nur das erste oder zweite Taxi in der Reihe wählen.",
+  "Der Fahrgast muss das Taxi nehmen, das zuerst an ihn heranfährt."
+],correct:0,
+explain:"Der Fahrgast hat die FREIE WAHL — er darf in JEDES Taxi aus der Reihe am Standplatz einsteigen. Nicht nur das erste, nicht nur das, das heranfährt."},
+
+// ── 39 ──────────────────────────────────────────────────────────────────────
+{q:"39.) Welche Mindestangaben muss das Taxiunternehmerschild enthalten?",
+opts:[
+  "Den Namen und den Standort des Gewerbetreibenden sowie das behördliche Kennzeichen des Taxikraftfahrzeugs.",
+  "Den Namen des Taxiunternehmers und die Telefonnummer.",
+  "Den Namen des Taxiunternehmers, die Adresse und die Taxilizenz-Nummer.",
+  "Das Firmenschild und das Kennzeichen — Name ist optional."
+],correct:0,
+explain:"Taxiunternehmerschild enthält: NAME und STANDORT des Gewerbetreibenden + behördliches KENNZEICHEN des Taxikraftfahrzeugs. Nicht Telefonnummer, nicht Lizenz-Nummer."},
+
+// ── 40 ──────────────────────────────────────────────────────────────────────
+{q:"40.) Dürfen Sie mit dem Taxi bei Großveranstaltungen in einer Halteverbotszone stehen?",
+opts:[
+  "Nein — das Parken oder Stehenlassen eines Taxis in Halteverbot­szonen bei Großveranstaltungen ist nicht gestattet.",
+  "Ja — bei Großveranstaltungen gilt eine Sonderregelung für Taxis.",
+  "Ja — aber nur für die Dauer des Ein- und Aussteigens der Fahrgäste.",
+  "Ja — wenn kein Taxistandplatz in der Nähe vorhanden ist."
+],correct:0,
+explain:"NEIN! Auch bei Großveranstaltungen ist das Parken oder Stehenlassen in Halteverbot­szonen NICHT gestattet. Keine Sonderregelung für Taxis."},
+
+// ── 41 ──────────────────────────────────────────────────────────────────────
+{q:"41.) Welche Pflichten hat der Taxilenker bei Verunreinigungen des Taxi-KFZ, soweit die Gefahr einer Beschmutzung der Fahrgäste oder ihrer Bekleidung besteht?",
+opts:[
+  "Bei Verunreinigungen, die eine Gefahr der Beschmutzung der Fahrgäste darstellen könnten, ist der Taxilenker verpflichtet, diese Verunreinigungen unverzüglich zu beseitigen.",
+  "Der Taxilenker muss die Fahrt sofort abbrechen und das Fahrzeug reinigen lassen.",
+  "Der Taxilenker muss den Fahrgast warnen — die Reinigung erfolgt nach der Fahrt.",
+  "Der Taxilenker haftet nicht für Verunreinigungen — das ist Aufgabe des Unternehmers."
+],correct:0,
+explain:"Bei Verunreinigungen die Fahrgäste/Bekleidung beschmutzen könnten: UNVERZÜGLICH beseitigen. Nicht erst nach der Fahrt, nicht Fahrt abbrechen — sofort handeln!"},
+
+// ── 42 ──────────────────────────────────────────────────────────────────────
+{q:"42.) Welche Verpflichtungen hat der Taxilenker bei einem Reifenschaden des Taxis nachzukommen?",
+opts:[
+  "Der Taxilenker muss in der Lage sein, den Fahrtauftrag fortzusetzen — entweder durch Einsatz eines funktionstüchtigen, kraftfahrrechtlichen Vorschriften entsprechenden Ersatzrades oder durch Verwendung gleichwertiger technischer Hilfsmittel, die im Fahrzeug mitgeführt werden müssen.",
+  "Der Taxilenker muss sofort anhalten, den Fahrgast aussteigen lassen und den Pannendienst rufen.",
+  "Der Taxilenker muss den Unternehmer anrufen und auf Anweisung warten.",
+  "Bei Reifenschaden muss der Fahrtauftrag storniert werden."
+],correct:0,
+explain:"Bei Reifenschaden: Fahrtauftrag FORTSETZEN — entweder mit Ersatzrad (kraftfahrrechtlich vorschriftsgemäß) ODER gleichwertige technische Hilfsmittel (die im Fahrzeug mitgeführt sein müssen). Nicht einfach abbrechen!"},
+
+// ── 43 ──────────────────────────────────────────────────────────────────────
+{q:"43.) Wenn ein Fahrgast das Taxi beschmutzt — wie verhalten Sie sich?",
+opts:[
+  "Ein angemessenes Entgelt für die erforderliche Reinigung verlangen.",
+  "Die Fahrt sofort abbrechen und die Polizei rufen.",
+  "Die Reinigungskosten beim Taxiunternehmer einfordern — nicht beim Fahrgast.",
+  "Nichts — Verschmutzungen durch Fahrgäste sind versicherungsrechtlich abgedeckt."
+],correct:0,
+explain:"Wenn Fahrgast das Taxi beschmutzt: ein ANGEMESSENES ENTGELT für die erforderliche Reinigung verlangen. Direkt vom Fahrgast, nicht von der Versicherung, nicht von der Polizei."},
+
+// ── 44 ──────────────────────────────────────────────────────────────────────
+{q:"44.) Dürfen Sie als Taxilenker Ihren eigenen Hund im Taxi mitbefördern?",
+opts:[
+  "Nein — Tiere, deren Halter nicht der Fahrgast oder der Auftraggeber ist, dürfen im Taxi nicht mitbefördert werden.",
+  "Ja — der Taxilenker darf seinen eigenen Hund immer dabei haben.",
+  "Ja — aber nur wenn keine Fahrgäste im Taxi sind.",
+  "Nur wenn der Hund einen Maulkorb trägt und der Fahrgast einverstanden ist."
+],correct:0,
+explain:"NEIN! Tiere dürfen nur mitbefördert werden, wenn deren Halter der FAHRGAST oder AUFTRAGGEBER ist. Der eigene Hund des Taxilenkers darf NICHT im Taxi mitbefördert werden — egal ob Fahrgäste dabei sind oder nicht."}
+
+]; // Ende Q
+
+// ═══════════════════════════════════════════════
+//  LOGIC
+// ═══════════════════════════════════════════════
+let order=[], current=0, answered=false, correct=0, wrong=0, wrongSet=new Set(), mode='all';
+
+function init(m){
+  mode=m||'all'; current=0; correct=0; wrong=0; answered=false;
+  order=(mode==='wrong'&&wrongSet.size>0)?[...wrongSet]:Q.map((_,i)=>i);
+  updateStats(); render();
+}
+function shuffleQ(){
+  mode='all'; setActive('m-shuffle'); current=0; correct=0; wrong=0; answered=false;
+  order=Q.map((_,i)=>i).sort(()=>Math.random()-0.5);
+  updateStats(); render();
+}
+function setMode(m){
+  mode=m; wrongSet=new Set();
+  setActive(m==='all'?'m-all':'m-wrong'); init(m);
+}
+function setActive(id){
+  document.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));
+  const el=document.getElementById(id); if(el)el.classList.add('active');
+}
+
+function render(){
+  if(current>=order.length){showResult();return;}
+  const idx=order[current], q=Q[idx];
+  const pct=Math.round(((current+1)/order.length)*100);
+  document.getElementById('prog-fill').style.width=pct+'%';
+  document.getElementById('top-info').textContent='Frage '+(current+1)+' von '+order.length;
+
+  const indices=[0,1,2,3];
+  const shuffled=indices.sort(()=>Math.random()-0.5);
+  const correctDisplay=shuffled.indexOf(q.correct);
+
+  let html=`<div class="q-card">
+    <div class="q-category">🚖 Wiener Landesbetriebsordnung</div>
+    <div class="q-number">Frage ${current+1} von ${order.length}</div>
+    <div class="q-text">${q.q.replace(/\n/g,'<br>')}</div>`;
+
+  shuffled.forEach((origIdx,displayIdx)=>{
+    html+=`<div class="option" id="opt${displayIdx}" onclick="pick(${displayIdx},${correctDisplay})">
+      <div class="checkbox" id="cb${displayIdx}"></div>
+      <div class="opt-text">${q.opts[origIdx]}</div>
+    </div>`;
+  });
+
+  html+=`<div class="feedback" id="feedback"></div>
+    <div class="btn-row">
+      <button class="btn btn-orange" id="btn-w" onclick="next()" disabled>Weiter →</button>
+    </div>
+  </div>`;
+
+  document.getElementById('quiz-area').innerHTML=html;
+  answered=false;
+}
+
+function pick(chosen, correctDisplay){
+  if(answered)return; answered=true;
+  const idx=order[current], q=Q[idx];
+  for(let j=0;j<4;j++){
+    const el=document.getElementById('opt'+j), cb=document.getElementById('cb'+j);
+    el.classList.add('disabled');
+    if(j===chosen&&j===correctDisplay){el.classList.add('correct');cb.textContent='✓';}
+    else if(j===chosen){el.classList.add('wrong');cb.textContent='✗';}
+    else if(j===correctDisplay){el.classList.add('reveal');cb.textContent='✓';}
+  }
+  const fb=document.getElementById('feedback');
+  if(chosen===correctDisplay){
+    correct++;
+    fb.className='feedback show ok';
+    fb.innerHTML='✓ <strong>Richtig!</strong> — '+q.explain;
+  } else {
+    wrong++;
+    wrongSet.add(idx);
+    fb.className='feedback show ko';
+    fb.innerHTML='✗ <strong>Falsch.</strong> — '+q.explain;
+  }
+  document.getElementById('btn-w').disabled=false;
+  updateStats();
+}
+
+function next(){current++;render();}
+
+function updateStats(){
+  document.getElementById('s-total').textContent=current;
+  document.getElementById('s-correct').textContent=correct;
+  document.getElementById('s-wrong').textContent=wrong;
+}
+
+function showResult(){
+  const total=order.length, pct=Math.round((correct/total)*100), pass=pct>=75;
+  document.getElementById('prog-fill').style.width='100%';
+  document.getElementById('top-info').textContent='Fertig!';
+  document.getElementById('s-total').textContent=total;
+  document.getElementById('s-correct').textContent=correct;
+  document.getElementById('s-wrong').textContent=wrong;
+  document.getElementById('quiz-area').innerHTML=`<div class="q-card result-screen">
+    <div class="q-category">🚖 Ergebnis</div>
+    <div class="big">${correct}/${total}</div>
+    <div class="sub">${pct}% richtig beantwortet</div>
+    <div class="pass-badge ${pass?'pass':'fail'}">${pass?'✓ Bestanden':'✗ Nicht bestanden — weiter üben!'}</div>
+    <div style="margin-top:24px;font-size:14px;color:#666;line-height:1.8">
+      ${wrong>0
+        ? `Du hast <strong>${wrong}</strong> Fragen falsch beantwortet.<br>Klicke <em>"Nur Falsche"</em> um sie nochmal zu üben!`
+        : '🎉 Perfekt! Alle Betriebsordnung-Fragen richtig beantwortet!'}
+    </div>
+    <div style="margin-top:24px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+      <button class="btn btn-orange" onclick="init('all')">Nochmal (alle) ↺</button>
+      ${wrong>0?`<button class="btn btn-blue" onclick="setMode('wrong')">Nur Falsche üben</button>`:''}
+    </div>
+  </div>`;
+}
+
+init('all');
+</script>
+</body>
+</html>
